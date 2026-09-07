@@ -20,6 +20,19 @@ index" cannot be evaluated from a min/max envelope, and a rule that cannot be ev
 a rule. `seed_created_at` joins the canonical config, so a v1.4 report is refused rather than
 silently compared, and the runner and comparator versions are now asserted equal by the suite.
 
+## [0.24.0] — 2026-09-07 — engine 0.22.x admitted
+
+Pin: `yantrikdb>=0.12.1,!=0.15.0,!=0.15.1,!=0.15.2,<0.23.0` (was `<0.22.0`). No plugin code change.
+
+Engine 0.22.0 adds schema v53–v54 (`claims.grounding`, `extraction_refusals`; additive,
+migrates on open): a claim-chain eligibility gate that opens in `shadow` (results unchanged,
+counters only), occurrence-local relation binding with a refusal ledger and silver recall,
+and — the reason to upgrade promptly — a guard against a second SQLite library holding the
+store open in the same process (yantrikdb#225: silent page aliasing; the engine now refuses
+to write while the condition holds, Linux and macOS). The plugin never opens a store with the
+stdlib `sqlite3` module in-process, so it is unaffected by the guard and benefits from it.
+Gate v1.5.0 on the release wheel: 0 nonzero paired deltas, 12/12 ordering signatures, 494 passed.
+
 ## [0.23.0] — 2026-09-06 — engine 0.21.x admitted
 
 Pin: `yantrikdb>=0.12.1,!=0.15.0,!=0.15.1,!=0.15.2,<0.22.0` (was `<0.21.0`). No plugin code change.
