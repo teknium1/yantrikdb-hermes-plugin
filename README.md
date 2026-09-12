@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yantrikos/yantrikdb-hermes-plugin)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/yantrikdb-hermes-plugin)](https://pypi.org/project/yantrikdb-hermes-plugin/)
+[![Downloads](https://img.shields.io/pypi/dm/yantrikdb-hermes-plugin)](https://pypi.org/project/yantrikdb-hermes-plugin/)
 [![YantrikDB engine](https://img.shields.io/badge/yantrikdb%20engine-%E2%89%A50.12.1,%3C0.16-orange)](https://github.com/yantrikos/yantrikdb)
 [![Hermes Agent](https://img.shields.io/badge/hermes--agent-plugin-8a2be2)](https://github.com/NousResearch/hermes-agent)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -15,6 +16,16 @@
 This repository **is** the canonical distribution. Per Hermes maintainer guidance, new memory providers aren't being merged upstream — the recommended pattern is standalone plugins that users install via `pip` and register with their Hermes home directory. That keeps the version cadence, CI gating, issue triage, and review cycle on the plugin author's side, so fixes ship the same day they're ready instead of waiting on upstream review bandwidth.
 
 ![Self-directing memory loop: gap → task → agenda → learn → close](./assets/demos/self-directing/demo.gif)
+
+## Quick install
+
+```bash
+pip install yantrikdb-hermes-plugin   # ~10 MB, in the same Python env as Hermes
+yantrikdb-hermes install              # registers the plugin with Hermes
+hermes memory setup                   # → select "yantrikdb"
+```
+
+No server, no token, no GPU. From here the agent remembers and recalls on its own — tell it "I prefer dark mode in VS Code" in one session, ask "what editor theme do I like?" in the next, and it answers from `yantrikdb_recall` with a `why_retrieved` reason attached. Full install options — including `hermes plugins install`, `uv`/`pipx` environments, and the HTTP backend for HA clusters — are under [Install](#install-default--embedded-backend) below.
 
 ## Why this exists
 
@@ -515,6 +526,7 @@ The rest of the YantrikDB stack, if you need memory somewhere other than Hermes:
 - [yantrikdb](https://github.com/yantrikos/yantrikdb) — the embeddable Rust/Python engine this plugin runs in-process (`pip install yantrikdb`).
 - [yantrikdb-server](https://github.com/yantrikos/yantrikdb-server) — HTTP gateway and HA cluster, for the alternative HTTP backend above.
 - [yantrikdb-mcp](https://github.com/yantrikos/yantrikdb-mcp) — the same memory as an MCP server for Claude Code, Cursor and Windsurf (`pip install yantrikdb-mcp`).
+- [openclaw-memory-yantrikdb](https://github.com/yantrikos/openclaw-memory-yantrikdb) — the same substrate as a memory plugin for OpenClaw, over plain HTTP.
 - [yantrikdb-client](https://github.com/yantrikos/yantrikdb-client) — typed Python client for the HTTP server.
 - [langchain-yantrikdb](https://github.com/yantrikos/langchain-yantrikdb) — YantrikDB as a LangChain `VectorStore` and `ChatMessageHistory`.
 - [yantrik-memory](https://github.com/yantrikos/yantrik-memory) — framework-agnostic memory layer with traits and bond evolution.
