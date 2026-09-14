@@ -20,6 +20,19 @@ index" cannot be evaluated from a min/max envelope, and a rule that cannot be ev
 a rule. `seed_created_at` joins the canonical config, so a v1.4 report is refused rather than
 silently compared, and the runner and comparator versions are now asserted equal by the suite.
 
+## [0.25.0] — 2026-09-14 — engine 0.23.x admitted
+
+Pin: `yantrikdb>=0.12.1,!=0.15.0,!=0.15.1,!=0.15.2,<0.24.0` (was `<0.23.0`). No plugin code change.
+
+Engine 0.23.0 is additive and leaves the schema at v54 (no migration on open): recall results
+carry `event_time_min`/`event_time_max` from the stored columns and `recall_as_of` rollback is
+fixed (yantrikdb#181/#229); three read-only inspect calls (`claims_for_memory`,
+`revision_history`, `memory_entities`) back the packaged Memory Atlas (`yantrikdb atlas
+<store.db>`) and the new terminal explorer `yantrikdb-tui`, which snapshots a store before
+reading it and so can be pointed at a store this plugin has open. Gate v1.5.0 on the release
+wheel (baseline 0.22.0): 0 nonzero paired deltas over 80 paired values, 12/12 ordering
+signatures shared, 494 passed / 3 skipped / 2 xfailed.
+
 ## [0.24.0] — 2026-09-07 — engine 0.22.x admitted
 
 Pin: `yantrikdb>=0.12.1,!=0.15.0,!=0.15.1,!=0.15.2,<0.23.0` (was `<0.22.0`). No plugin code change.
